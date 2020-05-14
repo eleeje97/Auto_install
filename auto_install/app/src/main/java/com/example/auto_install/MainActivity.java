@@ -22,18 +22,21 @@ public class MainActivity extends AppCompatActivity {
 
 
         // 지정된 경로의 파일 생성
-        File dir_file = new File(dir_path);
+        //File dir_file = new File(dir_path);
 
 
         // 생성된 dir_file의 하위 파일들(확장자: .apk) 경로를 apkFiles에 저장
-        File[] apkFiles = dir_file.listFiles();
+
+        //File[] apkFiles = dir_file.listFiles();
 
         /** 정보를 잘 가져 왔는지 확인용
          *  테스트 해보고 아래 for문은 지울 것 **/
+
+        /*
         for(File curFile: apkFiles){
             System.out.println(curFile.getPath());
         }
-
+        */
 
         // auto_install 앱이 설치 되었는지를 확인
         // packageManager를 이용하면 확인 가능
