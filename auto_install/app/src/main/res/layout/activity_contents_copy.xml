@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ContentsCopyActivity"
+    android:orientation="vertical"
     android:gravity="center">
 
     <Button
@@ -14,5 +15,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="콘텐츠 다운로드" />
+
+    <TextView
+        android:id="@+id/logView"
+        android:layout_marginHorizontal="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>
