@@ -42,18 +42,17 @@ public class ContentsCopyActivity extends AppCompatActivity {
 
 
             /**
-             * USB에 컨텐츠 파일이 있는지 확인
+             * USB 경로 확인 : USB마다 경로명이 다르므로 일반화
              **/
-
             /* USB 경로 확인 후 파일목록 출력 */
+            log += "[USB 경로확인]";
             String usbDir = "/storage/64CA-79C3"; // 근화학교 USB 경로 --> 나중에 경로 일반화해야 함!
             getChildFileList(usbDir);
 
 
-            /* USB경로/contents/... 있는지 확인 */
+            /* USB경로/contents에 파일이 있는지 확인 */
             File usbContents = new File(usbDir, "/contents");
             if(usbContents.exists()) {
-                // 기기에 디지털교과서 경로 있는지 확인
                 getChildFileList(usbContents.getPath()); // 파일목록 출력
             } else {
                 // contents 파일이 없다고 경고
@@ -66,6 +65,14 @@ public class ContentsCopyActivity extends AppCompatActivity {
              * 기기에 Android/data/kr.or.keris.dt2018/files/DTBook/DTBook/DtextBook 경로가 존재하는지 확인
              * (디지털 교과서 앱이 설치되어 있는지 확인)
              **/
+            File DtextBook = new File(Environment.getExternalStorageDirectory() + "/Android/data/kr.or.keris.dt2018/files/DTBook/DTBook/DtextBook");
+            if(DtextBook.exists()) {
+                getChildFileList(DtextBook.getPath());
+            } else {
+                // DtextBook 폴더가 없다고 경고 (디지털 교과서 앱이 설치되지 않음)
+                Log.e(TAG, DtextBook.getPath() + " 파일이 존재하지 않습니다.");
+                log += DtextBook.getPath() + " 파일이 존재하지 않습니다." + "\n";
+            }
 
 
             /**
@@ -73,7 +80,16 @@ public class ContentsCopyActivity extends AppCompatActivity {
              **/
             log += "[컨텐츠 파일 복사]\n";
 
+
+            /** text 파일 복사 test **/
+            /*
             String copyfile = "copythis.txt"; // 복사할 파일명
+            String fromDir = Environment.getExternalStorageDirectory() + "/Download" + File.separator; // 복사 전 폴더
+            String toDir = Environment.getExternalStorageDirectory() + "/Download/copyhere" + File.separator; // 복사 후 폴더
+             */
+
+            /** zip 파일 복사 test **/
+            String copyfile = "ziptest.zip"; // 복사할 파일명
             String fromDir = Environment.getExternalStorageDirectory() + "/Download" + File.separator; // 복사 전 폴더
             String toDir = Environment.getExternalStorageDirectory() + "/Download/copyhere" + File.separator; // 복사 후 폴더
 
@@ -97,7 +113,7 @@ public class ContentsCopyActivity extends AppCompatActivity {
                 getChildFileList(toDir);
 
                 try {
-                    filecopy(from, to);
+                    copyFile(from, to);
                     Log.e(TAG, "Copy Success!");
                     log += "Copy Success!\n";
                 } catch (Exception e) {
@@ -111,8 +127,6 @@ public class ContentsCopyActivity extends AppCompatActivity {
 
             }
 
-
-            Log.e(TAG, Environment.getExternalStorageDirectory() + "");
 
             logView.setText(log);
 
@@ -129,7 +143,7 @@ public class ContentsCopyActivity extends AppCompatActivity {
         log += "\n";
 
         File dir = new File(parentUri);
-        String[] files = dir.list(); // parent 폴더 안에 있는 파일들
+        File[] files = dir.listFiles(); // parent 폴더 안에 있는 파일들
 
         Log.e(TAG, "폴더 경로 >> " + dir.getPath());
         log += "폴더 경로 >>  " + dir.getPath() + "\n";
@@ -141,9 +155,9 @@ public class ContentsCopyActivity extends AppCompatActivity {
             Log.e(TAG, "파일개수: " + files.length); // 파일 개수
             log += "파일개수: " + files.length + "\n";
 
-            for(String filename : files) {
-                Log.e(TAG, filename); // 파일명
-                log += filename + "\n";
+            for(File file : files) {
+                Log.e(TAG, file + ""); // 파일명
+                log += file + "\n";
             }
         }
 
@@ -151,7 +165,7 @@ public class ContentsCopyActivity extends AppCompatActivity {
     }
 
 
-    private static void filecopy(String from, String to) throws Exception{
+    private static void copyFile(String from, String to) throws Exception{
         FileInputStream fis = null;
         FileOutputStream fos = null;
         FileChannel in = null;
