@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.hardware.usb.UsbAccessory;
+import android.hardware.usb.UsbManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -47,6 +48,10 @@ public class MainActivity extends AppCompatActivity {
         // apk 파일 접근해 설치를 할 수 있도록
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
+
+        // usb 정보가져오기
+       // UsbAccessory accessory = (UsbAccessory) intent.getParcelableExtra(UsbManager.EXTRA_ACCESSORY);
+
 
         // xml 파일 연결
         apk1 = findViewById(R.id.apkinfo1);
@@ -109,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                         //  3개의 apk 파일이 설치되어 패키지가 존재하는지 확인
-                        
+
                     }
                     else{
                         Toast.makeText(getApplication(), auto_install_pk + "앱이 설치되어 있지 않습니다."
