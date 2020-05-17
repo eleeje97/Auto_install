@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -31,6 +32,7 @@ public class ContentsCopyActivity extends AppCompatActivity {
 
         button = findViewById(R.id.button);
         logView = findViewById(R.id.logView);
+        logView.setMovementMethod(new ScrollingMovementMethod());
 
         button.setOnClickListener(onButtonClickListener);
     }
@@ -89,9 +91,16 @@ public class ContentsCopyActivity extends AppCompatActivity {
              */
 
             /** zip 파일 복사 test **/
+            /*
             String copyfile = "ziptest.zip"; // 복사할 파일명
             String fromDir = Environment.getExternalStorageDirectory() + "/Download" + File.separator; // 복사 전 폴더
             String toDir = Environment.getExternalStorageDirectory() + "/Download/copyhere" + File.separator; // 복사 후 폴더
+            */
+
+            /** USB에서 DTextBook으로 zip 파일 복사 test **/
+            String copyfile = "ziptest.zip"; // 복사할 파일명
+            String fromDir = usbContents + File.separator; // 복사 전 폴더
+            String toDir = DtextBook + File.separator; // 복사 후 폴더
 
             String from = fromDir + copyfile;
             String to = toDir + copyfile;
