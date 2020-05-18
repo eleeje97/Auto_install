@@ -137,6 +137,18 @@ public class ContentsCopyActivity extends AppCompatActivity {
             }
 
 
+            /**
+             * zip 파일 압축 해제
+             **/
+            String zipFile = "ziptest"; // zip 파일명 (확장자 제외)
+            String unzipLocation = DtextBook.getPath() + File.separator;  // unzip 할 위치
+
+            Decompress d = new Decompress(zipFile, unzipLocation);
+            //d.unzip();
+
+
+
+
             logView.setText(log);
 
         }
@@ -174,6 +186,12 @@ public class ContentsCopyActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * 파일 복사
+     * @param from : 복사하기 전 파일 경로 (파일명 포함)
+     * @param to : 복사한 후 파일 경로 (파일명 포함)
+     * @throws Exception
+     **/
     private static void copyFile(String from, String to) throws Exception{
         FileInputStream fis = null;
         FileOutputStream fos = null;
